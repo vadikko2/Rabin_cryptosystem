@@ -9,7 +9,7 @@ def encryption(plaintext, n):
 
 def padding(plaintext):
     binary_str = bin(plaintext)
-    binary_str += bin(int(np.mean([ord(ch) for ch in 'sosyhuybydlo'])))[2:]
+    binary_str += bin(int(np.mean([ord(ch) for ch in 'paddingbytes'])))[2:]
 
     return int (binary_str, 2)
 
@@ -33,7 +33,7 @@ def decryption(a, p, q):
 def choose(lst):
     for i in lst:
         binary = bin(i)
-        padding = bin(int(np.mean([ord(ch) for ch in 'sosyhuybydlo'])))[2:]
+        padding = bin(int(np.mean([ord(ch) for ch in 'paddingbytes'])))[2:]
 
         if binary[-len(padding):] == padding:
             return int(binary[:-len(padding)],2)
