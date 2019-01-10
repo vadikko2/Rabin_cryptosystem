@@ -1,4 +1,5 @@
 import random
+from random import randrange, getrandbits
 
 # PARAMETERS
 # primes under 1000
@@ -45,7 +46,7 @@ def generate_prime_number(num_of_bits):
     while 1:
         # randomly generate a 128-bit number
         num = random.getrandbits(num_of_bits)
-        if isPrime(num):
+        if isPrime(num) and (num % 4) == 3:
             return num
         else:
             continue

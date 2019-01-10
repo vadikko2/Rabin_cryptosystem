@@ -7,10 +7,10 @@ class crypto_system:
     def __init__(self, name):
         self.user_name = name
         self.private_key_file = 'bin/private_{n}.pkl'.format(n=name)
-        self.public_key_file = 'bin/public_{n}.pkl'.format (n=name)
+        self.public_key_file = 'bin/public_{n}.pkl'.format(n=name)
 
     def is_keys_file_exists(self, keys_file):
-        if not os.path.exists (keys_file):
+        if not os.path.exists(keys_file):
             print ('There is no keys`s file <{kf}>'.format(kf=keys_file))
             return False
         else:
@@ -28,7 +28,6 @@ class crypto_system:
         print('n: ', n)
         pkl.dump((p,q), open(self.private_key_file, 'wb'))
         pkl.dump(n, open(self.public_key_file, 'wb'))
-
 
     def load_public_key(self, public_key_file):
 
@@ -48,7 +47,7 @@ class crypto_system:
         if not self.is_keys_file_exists(private_key_file):
             exit()
 
-        p, q =  pkl.load(open(private_key_file, 'rb'))
+        p, q = pkl.load(open(private_key_file, 'rb'))
 
         print ("Private keys loaded! Using:")
 
@@ -57,11 +56,10 @@ class crypto_system:
 
         return p, q
 
-
     def encryption(self):
 
         key_holder = input('\nInput key holder`s name:')
-        enc_file_name = input ('\nInput file name with cypher text: ')
+        enc_file_name = input('\nInput file name with cypher text: ')
 
         public_key_file_name = 'bin/public_{kh}.pkl'.format(kh=key_holder)
         n = self.load_public_key(public_key_file_name)
@@ -91,7 +89,11 @@ class crypto_system:
         try:
             for ciphertext in data:
                 plaintext = Rabin.decryption(ciphertext, p, q)
-                result += chr(plaintext)
+                try:
+                    result += chr(plaintext)
+                except Exception as e:
+                    result += '?'
+                    print(e)
 
             print ('\nDecrypted text: ', result)
         except Exception as e:
@@ -115,6 +117,4 @@ if __name__ == '__main__':
         rb.decryption()
         print ('<Rabin Decryption is successful done>')
     else:
-        print ('\nThe parameter [{ac}] is not available'.format (ac=action))
-    
-   
+        print ('\nThe parameter [{ac}] is not available'.format(ac=action))
